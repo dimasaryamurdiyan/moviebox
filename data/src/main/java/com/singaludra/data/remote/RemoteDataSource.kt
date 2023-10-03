@@ -16,10 +16,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
 
 const val NETWORK_PAGE_SIZE = 1
-class RemoteDataSource constructor(
+class RemoteDataSource @Inject constructor(
     private val apiService: ApiService
 ): IRemoteDataSource {
     override fun getMovies(): Flow<ApiResponse<List<MovieResponse>>> {

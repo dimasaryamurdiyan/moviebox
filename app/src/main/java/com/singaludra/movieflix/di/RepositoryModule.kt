@@ -1,0 +1,21 @@
+package com.singaludra.movieflix.di
+
+import com.singaludra.data.MovieRepository
+import com.singaludra.data.remote.IRemoteDataSource
+import com.singaludra.data.remote.RemoteDataSource
+import com.singaludra.domain.repository.IMovieRepository
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+
+@Module(includes = [NetworkModule::class, DatabaseModule::class])
+@InstallIn(SingletonComponent::class)
+abstract class RepositoryModule {
+
+    @Binds
+    abstract fun provideRepository(movieRepository: MovieRepository): IMovieRepository
+
+    @Binds
+    abstract fun provideRemoteDataSource(remoteDataSource: RemoteDataSource): IRemoteDataSource
+}

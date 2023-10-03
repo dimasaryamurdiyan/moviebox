@@ -1,5 +1,6 @@
 package com.singaludra.data.remote.network
 
+import com.singaludra.data.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -10,7 +11,7 @@ class RequestInterceptor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
 
-        val token = "BuildConfig.API_KEY"
+        val token = BuildConfig.API_KEY
         val httpUrlBuilder = original.url.newBuilder()
         val httpUrl = httpUrlBuilder.addQueryParameter("api_key", token).build()
 

@@ -22,16 +22,24 @@ data class MovieEntity (
 
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = false,
-
 ) {
     companion object {
-        fun mapFromDomain(movie: Movie):  MovieEntity {
+        fun mapFromDomain(movie: Movie): MovieEntity {
             return MovieEntity(
                 id = movie.id,
                 overview = movie.overview,
-                originalTitle = movie.title,
+                originalTitle= movie.title,
                 posterPath = movie.image,
             )
         }
     }
+}
+
+fun MovieEntity.mapToDomain() : Movie {
+    return Movie(
+        id = this.id,
+        overview = this.overview,
+        title = this.originalTitle,
+        image = this.posterPath,
+    )
 }

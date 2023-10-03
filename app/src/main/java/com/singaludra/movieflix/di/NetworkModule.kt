@@ -2,6 +2,7 @@ package com.singaludra.movieflix.di
 
 import com.singaludra.data.remote.network.ApiService
 import com.singaludra.data.remote.network.RequestInterceptor
+import com.singaludra.movieflix.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,7 +32,7 @@ class NetworkModule {
     @Provides
     fun provideApiService(client: OkHttpClient): ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("BuildConfig.BASE_URL")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

@@ -1,5 +1,6 @@
 package com.singaludra.data.local.room.dao
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -7,6 +8,7 @@ import androidx.room.Update
 import com.singaludra.data.local.entity.MovieEntity
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface MovieDao {
     @Query("SELECT * FROM movie")
     fun getAllMovie(): Flow<List<MovieEntity>>

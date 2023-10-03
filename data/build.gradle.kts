@@ -14,6 +14,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("String", "API_KEY", "\"94b1176a84b5c876a21900434bc4878a\"")
     }
 
     buildTypes {
@@ -31,6 +32,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+    }
+    buildFeatures{
+        buildConfig = true
     }
 }
 
