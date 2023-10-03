@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "movieflix"
 include(":app")
+include(":domain")
+include(":data")

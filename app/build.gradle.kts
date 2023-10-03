@@ -49,6 +49,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":data"))
 
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
@@ -67,7 +69,6 @@ dependencies {
 
     implementation(libs.coroutines.android)
     implementation(libs.coroutines.core)
-
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
