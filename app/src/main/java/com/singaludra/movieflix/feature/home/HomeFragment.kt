@@ -1,4 +1,4 @@
-package com.singaludra.movieflix.presentation.home
+package com.singaludra.movieflix.feature.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

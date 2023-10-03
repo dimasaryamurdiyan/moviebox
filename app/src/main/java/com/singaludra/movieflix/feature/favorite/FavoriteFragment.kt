@@ -1,21 +1,22 @@
-package com.singaludra.movieflix.presentation.movies
+package com.singaludra.movieflix.feature.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.singaludra.movieflix.databinding.FragmentMovieBinding
+import com.singaludra.movieflix.databinding.FragmentFavoriteBinding
 
-class MovieFragment : Fragment() {
-    private lateinit var binding: FragmentMovieBinding
+class FavoriteFragment : Fragment() {
+    private lateinit var binding: FragmentFavoriteBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentMovieBinding.inflate(inflater, container, false)
+        binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }
+
 }
