@@ -1,4 +1,4 @@
-package com.singaludra.data.remote
+package com.singaludra.data.remote.network
 
 import okhttp3.Interceptor
 import okhttp3.Response

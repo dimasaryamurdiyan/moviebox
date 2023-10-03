@@ -1,7 +1,7 @@
 package com.singaludra.movieflix.di
 
 import com.singaludra.data.remote.network.ApiService
-import com.singaludra.data.remote.RequestInterceptor
+import com.singaludra.data.remote.network.RequestInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
