@@ -1,8 +1,8 @@
-package com.singaludra.movieflix.domain.repository
+package com.singaludra.domain.repository
 
-import com.singaludra.movieflix.domain.Resource
-import com.singaludra.movieflix.domain.model.Movie
-import com.singaludra.movieflix.domain.model.Review
+import com.singaludra.domain.Resource
+import com.singaludra.domain.model.Movie
+import com.singaludra.domain.model.Review
 import kotlinx.coroutines.flow.Flow
 
 interface IMovieRepository {

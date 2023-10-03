@@ -1,4 +1,4 @@
-package com.singaludra.movieflix.domain.model
+package com.singaludra.domain.model
 
 data class Review(
     val id: String,
