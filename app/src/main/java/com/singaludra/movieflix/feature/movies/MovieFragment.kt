@@ -1,5 +1,6 @@
 package com.singaludra.movieflix.feature.movies
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.singaludra.domain.model.Movie
 import com.singaludra.movieflix.databinding.FragmentMovieBinding
 import com.singaludra.movieflix.feature.common.MovieAdapter
+import com.singaludra.movieflix.feature.detail.DetailMovieActivity
 import com.singaludra.movieflix.utils.shortToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -72,7 +74,9 @@ class MovieFragment : Fragment() {
     private fun showMovies(movie: List<Movie>) {
         movieAdapter = MovieAdapter(object : MovieAdapter.OnClickListener{
             override fun onClickItem(item: Movie) {
-                TODO("go to detail screen")
+                val intent = Intent(activity, DetailMovieActivity::class.java)
+                intent.putExtra(DetailMovieActivity.EXTRA_DATA, item.id)
+                startActivity(intent)
             }
 
         })

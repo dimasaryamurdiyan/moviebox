@@ -1,5 +1,6 @@
 package com.singaludra.movieflix.feature.detail
 
+import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -23,6 +24,7 @@ import com.singaludra.movieflix.utils.hourMinutes
 import com.singaludra.movieflix.utils.loadImage
 import com.singaludra.movieflix.utils.roundTo
 import com.singaludra.movieflix.utils.shortToast
+import com.singaludra.movieflix.utils.showLoadingDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -40,6 +42,9 @@ class DetailMovieActivity : AppCompatActivity() {
     private val reviewAdapter by lazy {
         ReviewAdapter()
     }
+
+    @Suppress("DEPRECATION")
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,14 +110,14 @@ class DetailMovieActivity : AppCompatActivity() {
                     when (uiState) {
                         is DetailMovieUiState.Success -> {
                             showDetailMovie(uiState.movie)
-//                            binding.progressBarMovies.visibility = View.GONE
+                            hideLoading()
                         }
                         is DetailMovieUiState.Error -> {
+                            showLoading()
                             showError(uiState.exception)
-//                            binding.progressBarMovies.visibility = View.GONE
                         }
                         is DetailMovieUiState.Loading -> {
-//                            binding.progressBarMovies.visibility = View.VISIBLE
+                            showLoading()
                         }
                     }
                 }
@@ -173,6 +178,17 @@ class DetailMovieActivity : AppCompatActivity() {
         } else {
             binding.fabFavorite.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_outline_24))
         }
+    }
+
+    private fun hideLoading() {
+        if (progressDialog != null && progressDialog?.isShowing!!) {
+            progressDialog?.cancel()
+        }
+    }
+
+    private fun showLoading() {
+        hideLoading()
+        progressDialog = this@DetailMovieActivity.showLoadingDialog()
     }
 
     companion object {
