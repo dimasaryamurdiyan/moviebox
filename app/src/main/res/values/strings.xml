@@ -3,4 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="content_description_media">content description media</string>
+    <string name="tonton_trailer">Tonton Trailer</string>
+    <string name="overview">Overview</string>
+    <string name="review">Reviews</string>
+    <string name="tv_empty">Tidak ada favorite movie</string>
+    <string name="btnRetry">Retry</string>
 </resources>
