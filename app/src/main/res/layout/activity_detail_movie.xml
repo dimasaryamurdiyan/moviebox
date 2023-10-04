@@ -256,7 +256,6 @@
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/progressBarMovies"
                     app:spanCount="3"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_review" />
@@ -268,6 +267,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="64dp"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="@string/tv_empty"
                 android:textAppearance="?attr/textAppearanceBody2"
                 app:layout_constraintTop_toTopOf="@+id/llReviews" />
@@ -277,6 +277,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btnRetry"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvEmpty" />
@@ -288,5 +289,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="8dp"
+        android:src="@drawable/ic_favorite_outline_24"
         android:contentDescription="@string/content_description_media" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

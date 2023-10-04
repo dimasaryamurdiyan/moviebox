@@ -30,6 +30,7 @@ data class MovieEntity (
                 overview = movie.overview,
                 originalTitle= movie.title,
                 posterPath = movie.image,
+                isFavorite = movie.isFavorite
             )
         }
     }
@@ -41,5 +42,6 @@ fun MovieEntity.mapToDomain() : Movie {
         overview = this.overview,
         title = this.originalTitle,
         image = this.posterPath,
+        isFavorite = this.isFavorite
     )
 }
