@@ -28,7 +28,7 @@ class FavoriteViewModel @Inject constructor(
     init {
         getMovies()
     }
-    private fun getMovies() {
+    fun getMovies() {
         viewModelScope.launch {
             repository.getFavoriteMovies().collect{ result ->
                 when(result) {
