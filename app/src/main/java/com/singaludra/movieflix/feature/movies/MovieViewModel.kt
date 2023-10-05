@@ -30,9 +30,31 @@ class MovieViewModel @Inject constructor(
         getMovies()
     }
 
-    private fun getMovies() {
+    fun getMovies() {
         viewModelScope.launch {
             movieRepository.getMovies().collect{ result ->
+                when(result) {
+                    is Resource.Success -> {
+                        if (result.data?.isNotEmpty() == true){
+                            _uiState.value = MovieUiState.Success(result.data!!)
+                        } else {
+                            _uiState.value = MovieUiState.Success(emptyList())
+                        }
+                    }
+                    is Resource.Error -> {
+                        _uiState.value = MovieUiState.Error(result.message ?: "undefined")
+                    }
+                    is Resource.Loading -> {
+                        _uiState.value = MovieUiState.Loading
+                    }
+                }
+            }
+        }
+    }
+
+    fun searchMovies(name: String){
+        viewModelScope.launch {
+            movieRepository.searchMovies(name).collect{ result ->
                 when(result) {
                     is Resource.Success -> {
                         if (result.data?.isNotEmpty() == true){

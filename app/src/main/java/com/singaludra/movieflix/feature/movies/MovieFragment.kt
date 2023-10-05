@@ -1,21 +1,28 @@
 package com.singaludra.movieflix.feature.movies
 
 import android.content.Intent
+import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.room.util.query
 import com.singaludra.domain.model.Movie
 import com.singaludra.movieflix.databinding.FragmentMovieBinding
 import com.singaludra.movieflix.feature.common.MovieAdapter
 import com.singaludra.movieflix.feature.detail.DetailMovieActivity
+import com.singaludra.movieflix.utils.getQueryTextChangeStateFlow
 import com.singaludra.movieflix.utils.shortToast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -36,6 +43,33 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onViewObserve()
+        onViewBind()
+    }
+
+    private fun onViewBind() {
+        with(binding){
+            svMovie.setOnCloseListener {
+                viewModel.getMovies()
+                true
+            }
+            svMovie.queryHint = "Cari movie"
+            svMovie.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    if (!p0.isNullOrEmpty()){
+                        viewModel.searchMovies(p0)
+                    }
+                    return true
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    if(p0.isNullOrBlank()){
+                        viewModel.getMovies()
+                    }
+                    return true
+                }
+
+            })
+        }
     }
 
 

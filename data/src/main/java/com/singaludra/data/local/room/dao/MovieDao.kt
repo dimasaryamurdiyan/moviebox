@@ -21,4 +21,7 @@ interface MovieDao {
 
     @Update
     fun updateFavoriteMovie(movie: MovieEntity)
+
+    @Query("SELECT * FROM movie WHERE originalTitle LIKE '%' || :name || '%'")
+    fun searchMovie(name: String): Flow<MutableList<MovieEntity>>
 }

@@ -4,10 +4,13 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
 import com.bumptech.glide.Glide
 import com.singaludra.movieflix.R
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 fun ImageView.loadImage(url: String) {
     Glide
@@ -35,4 +38,23 @@ fun Context?.showLoadingDialog(): ProgressDialog? {
         }
     }
     return null
+}
+
+fun SearchView.getQueryTextChangeStateFlow(): StateFlow<String> {
+
+    val query = MutableStateFlow("")
+
+    setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            return true
+        }
+
+        override fun onQueryTextChange(newText: String): Boolean {
+            query.value = newText
+            return true
+        }
+    })
+
+    return query
+
 }

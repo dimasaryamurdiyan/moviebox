@@ -106,4 +106,18 @@ class MovieRepository @Inject constructor(
         }
     }
 
+    override fun searchMovies(name: String): Flow<Resource<List<Movie>>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val result = movieDao.searchMovie(name).first().map {
+                    it.mapToDomain()
+                }
+                emit(Resource.Success(result))
+            } catch (e: Exception){
+                emit(Resource.Error(e.message ?: "undefined exception"))
+            }
+        }
+    }
+
 }
