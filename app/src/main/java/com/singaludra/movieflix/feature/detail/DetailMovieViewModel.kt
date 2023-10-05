@@ -9,10 +9,12 @@ import com.singaludra.domain.model.Movie
 import com.singaludra.domain.model.Review
 import com.singaludra.domain.repository.IMovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 sealed interface DetailMovieUiState{
@@ -53,5 +55,9 @@ class DetailMovieViewModel @Inject constructor(
     }
 
     fun setFavoriteGame(movie: Movie, newStatus:Boolean) =
-        repository.setFavoriteMovie(movie, newStatus)
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                repository.setFavoriteMovie(movie, newStatus)
+            }
+        }
 }

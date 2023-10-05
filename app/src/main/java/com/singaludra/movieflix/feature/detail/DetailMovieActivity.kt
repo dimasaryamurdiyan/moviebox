@@ -3,6 +3,7 @@ package com.singaludra.movieflix.feature.detail
 import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -37,6 +38,10 @@ class DetailMovieActivity : AppCompatActivity() {
 
     private val movieId by lazy {
         intent.getIntExtra(EXTRA_DATA, 0)
+    }
+
+    private val isFavoriteMovie by lazy {
+        intent.getBooleanExtra(IS_FAVORITE, false)
     }
 
     private val reviewAdapter by lazy {
@@ -97,16 +102,10 @@ class DetailMovieActivity : AppCompatActivity() {
                 // Trigger the flow and start listening for values.
                 // Note that this happens when lifecycle is STARTED and stops
                 // collecting when the lifecycle is STOPPED
-
-                //region get movie review
-                viewModel.getMovieReview(movieId).collectLatest {
-                    reviewAdapter.submitData(it)
-                }
-                //end region
-
                 //region detail movie ui state
                 viewModel.uiState.collect { uiState ->
                     // New value received
+                    Log.d("detail screen", uiState.toString())
                     when (uiState) {
                         is DetailMovieUiState.Success -> {
                             showDetailMovie(uiState.movie)
@@ -121,8 +120,15 @@ class DetailMovieActivity : AppCompatActivity() {
                         }
                     }
                 }
-
             }
+        }
+
+        lifecycleScope.launch {
+            //region get movie review
+            viewModel.getMovieReview(movieId).collectLatest {
+                reviewAdapter.submitData(it)
+            }
+            //end region
         }
     }
 
@@ -154,7 +160,7 @@ class DetailMovieActivity : AppCompatActivity() {
             // end region populate genre
 
             //region favorite state
-            var statusFavorite = movie.isFavorite
+            var statusFavorite = isFavoriteMovie
             setStatusFavorite(statusFavorite)
             fabFavorite.setOnClickListener {
                 statusFavorite = !statusFavorite
@@ -193,5 +199,6 @@ class DetailMovieActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val IS_FAVORITE = "IS_FAVORITE"
     }
 }

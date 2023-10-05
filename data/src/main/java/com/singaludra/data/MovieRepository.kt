@@ -14,10 +14,12 @@ import com.singaludra.domain.Resource
 import com.singaludra.domain.model.Movie
 import com.singaludra.domain.model.Review
 import com.singaludra.domain.repository.IMovieRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
@@ -84,7 +86,7 @@ class MovieRepository @Inject constructor(
         }.asFlow()
     }
 
-    override fun setFavoriteMovie(movie: Movie, state: Boolean) {
+    override suspend fun setFavoriteMovie(movie: Movie, state: Boolean) {
         val movieEntity = MovieEntity.mapFromDomain(movie)
         movieEntity.isFavorite = state
         movieDao.updateFavoriteMovie(movieEntity)
@@ -94,11 +96,9 @@ class MovieRepository @Inject constructor(
         return flow {
             emit(Resource.Loading())
             try {
-                val result = movieDao.getFavoriteMovie().map {movies ->
-                    movies.map {
-                        it.mapToDomain()
-                    }
-                }.first()
+                val result = movieDao.getFavoriteMovie().first().map {
+                    it.mapToDomain()
+                }
                 emit(Resource.Success(result))
             } catch (e: Exception){
                 emit(Resource.Error(e.message ?: "undefined exception"))

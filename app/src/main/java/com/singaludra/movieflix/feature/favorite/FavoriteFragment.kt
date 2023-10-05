@@ -25,7 +25,7 @@ class FavoriteFragment : Fragment() {
     private lateinit var binding: FragmentFavoriteBinding
     private lateinit var movieAdapter: MovieAdapter
 
-    private val viewModel by viewModels<MovieViewModel>()
+    private val viewModel by viewModels<FavoriteViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,15 +52,15 @@ class FavoriteFragment : Fragment() {
                 viewModel.uiState.collect { uiState ->
                     // New value received
                     when (uiState) {
-                        is MovieUiState.Success -> {
+                        is FavriteMovieUiState.Success -> {
                             showMovies(uiState.movie)
                             binding.progressBarMovies.visibility = View.GONE
                         }
-                        is MovieUiState.Error -> {
+                        is FavriteMovieUiState.Error -> {
                             showError(uiState.exception)
                             binding.progressBarMovies.visibility = View.GONE
                         }
-                        is MovieUiState.Loading -> {
+                        is FavriteMovieUiState.Loading -> {
                             binding.progressBarMovies.visibility = View.VISIBLE
                         }
                     }
@@ -78,6 +78,7 @@ class FavoriteFragment : Fragment() {
             override fun onClickItem(item: Movie) {
                 val intent = Intent(activity, DetailMovieActivity::class.java)
                 intent.putExtra(DetailMovieActivity.EXTRA_DATA, item.id)
+                intent.putExtra(DetailMovieActivity.IS_FAVORITE, item.isFavorite)
                 startActivity(intent)
             }
 

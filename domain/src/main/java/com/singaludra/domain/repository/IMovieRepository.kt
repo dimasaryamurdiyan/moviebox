@@ -11,6 +11,6 @@ interface IMovieRepository {
     fun getMovieGenre(): Flow<Resource<List<Movie.Genre>>>
     fun getMovieReviews(id: Int): Flow<PagingData<Review>>
     fun getDetailMovie(id: Int): Flow<Resource<Movie>>
-    fun setFavoriteMovie(movie: Movie, state: Boolean)
+    suspend fun setFavoriteMovie(movie: Movie, state: Boolean)
     fun getFavoriteMovies(): Flow<Resource<List<Movie>>>
 }

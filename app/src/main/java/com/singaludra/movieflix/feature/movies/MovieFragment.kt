@@ -76,6 +76,7 @@ class MovieFragment : Fragment() {
             override fun onClickItem(item: Movie) {
                 val intent = Intent(activity, DetailMovieActivity::class.java)
                 intent.putExtra(DetailMovieActivity.EXTRA_DATA, item.id)
+                intent.putExtra(DetailMovieActivity.IS_FAVORITE, item.isFavorite)
                 startActivity(intent)
             }
 
